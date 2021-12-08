@@ -15,4 +15,26 @@ class TodoList < ApplicationRecord
     @todo_items ||= todo_items.count
   end
 
+  def status
+    case percent_complete.to_i
+    when 0
+      'Not started'
+    when 100
+      'Complete'
+    else
+      'In progress'
+    end
+  end
+
+  def badge_color
+    case percent_complete.to_i
+    when 0
+      'dark'
+    when 100
+      'info'
+    else
+      'primary'
+    end
+  end
+
 end
