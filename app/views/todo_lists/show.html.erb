@@ -13,7 +13,8 @@
         </h5>
         <p class='text-secondary m-0'>
           <small><%= @todo_list.percent_complete %>% Complete (<%= @todo_list.completed_items %>/<%= @todo_list.total_items %>
-            Todo items)</small></p>
+            Todo items)</small>
+        </p>
         <div>
           <%= link_to 'Edit', edit_todo_list_path(@todo_list), class: 'btn btn-secondary' %>
         </div>
