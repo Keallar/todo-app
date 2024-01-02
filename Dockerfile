@@ -1,20 +1,24 @@
-FROM ruby:2.7.4
+FROM ruby:3.1.2 as builder
 
-RUN apt-get update -qq && apt-get install -y locales
+RUN apt-get update -qq && apt-get install -y postgresql-client
 
-# RUN echo "ru_RU.UTF-8 UTF-8" > etc/locales.gen && \
-#   locale-gen ru_RU.UTF-8 && \
-#   /usr/sbin/update-locale LANG=ru_RU.UTF-8
-# ENV LC_ALL ru_RU.UTF-8
+RUN curl -sL https://deb.nodesource.com/setup_19.x | bash -\
+  && apt-get update -qq && apt-get install -qq --no-install-recommends \
+    nodejs \
+  && apt-get upgrade -qq \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*\
+  && npm install -g yarn@1
 
-ENV APP_PATH=/usr/src
-WORKDIR $APP_PATH
+RUN yarn add esbuild
+RUN yarn add sass
 
-COPY Gemfile* $APP_PATH/
+ENV APP_APTH=/usr/src
+WORKDIR $APP_APTH
+
+ADD Gemfile $APP_APTH/Gemfile
+ADD Gemfile.lock $APP_APTH/Gemfile.lock
+
+RUN yarn install
+
 RUN bundle install
-
-COPY . .
-
-EXPOSE 3000
-
-CMD [ "rails", "server", "-b", "0.0.0.0" ]

@@ -1,0 +1,9 @@
+<div class="card">
+  <div class="card-header">
+    <h1>Editing Todo List</h1>
+
+    <%= turbo_frame_tag dom_id(@list) do %>
+      <%= render 'form', list: @list %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<nav class="navbar bg-body-tertiary ">
+  <div class="container-fluid">
+    <%= link_to 'ToDo App', lists_path, class: 'navbar-brand' %>
+    <div class="d-flex">
+      <% unless logged_in? %>
+        <%= link_to 'Log out', logout_path, class: 'btn btn-success', data: {turbo_method: :delete}, remote: true %>
+      <% else %>
+        <% if current_page?(login_path) %>
+          <%= link_to 'Sign in', signup_path, class: 'btn btn-success' %>
+        <% else %>
+          <%= link_to 'Log in', login_path, class: 'btn btn-success' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,11 @@
+<div class="card-body">
+  <div class="input-group mb-4">
+    <%= form_with(model: list) do |f| %>
+      <div class="input-group">
+        <%= link_to 'Back', @list, class: 'btn btn-danger input-group-btn' %>
+        <%= f.text_field :title, class: "form-control", placeholder: 'List name' %>
+        <%= f.submit "Save", class: "btn btn-primary input-group-btn" %>
+      </div>
+    <% end %>
+  </div>
+</div>
